@@ -13,12 +13,15 @@ export function CurrencyConverter() {
   const debouncedAmount = useDebounce(amount, 500);
 
   const { data: currencies, isLoading: isLoadingCurrencies } = useCurrencies();
-  const { data: conversion, isFetching: isFetchingConversion } =
-    useConvertCurrency({
-      from,
-      to,
-      amount: debouncedAmount || 0,
-    });
+  const {
+    data: conversion,
+    isFetching: isFetchingConversion,
+    isError: isConversionError,
+  } = useConvertCurrency({
+    from,
+    to,
+    amount: debouncedAmount || 0,
+  });
 
   if (isLoadingCurrencies)
     return <span className="loading loading-spinner loading-xl mx-auto my-6" />;
@@ -31,6 +34,11 @@ export function CurrencyConverter() {
       </div>
     );
 
+  const handleSwap = () => {
+    setFrom(to);
+    setTo(from);
+  };
+
   const currenciesArray = currencies.response || [];
 
   const getCurrencyFromShortCode = (shortCode: string) =>
@@ -38,11 +46,9 @@ export function CurrencyConverter() {
 
   const fromCurrency = getCurrencyFromShortCode(from);
   const toCurrency = getCurrencyFromShortCode(to);
-
-  const handleSwap = () => {
-    setFrom(to);
-    setTo(from);
-  };
+  const conversionText = conversion
+    ? `${conversion.value.toFixed(2)} ${toCurrency?.name}`
+    : null;
 
   return (
     <div>
@@ -50,10 +56,12 @@ export function CurrencyConverter() {
         <div>
           {amount || 0} {fromCurrency?.name} equals
         </div>
-        <div className="text-2xl font-semibold">
-          {conversion?.value.toFixed(2)} {toCurrency?.name}
+        <div className="text-2xl font-semibold flex gap-x-2">
+          <span>
+            {isConversionError ? "Error converting currency" : conversionText}
+          </span>
           {isFetchingConversion ? (
-            <span className="loading loading-spinner loading-sm ml-4" />
+            <span className="loading loading-spinner loading-xl" />
           ) : null}
         </div>
       </div>

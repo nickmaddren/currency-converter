@@ -25,19 +25,20 @@ interface Response {
   response: Currencies;
 }
 
-const getCurrencies = async (): Promise<Response> => {
-  const res = await fetch(
+const getCurrencies = (): Promise<Response> =>
+  fetch(
     `https://api.currencybeacon.com/v1/currencies?api_key=${
       import.meta.env.VITE_CURRENCY_BEACON_API_KEY
     }`
-  );
-
-  const data = await res.json();
-
-  return camelcaseKeys(data, {
-    deep: true,
+  ).then(async (res) => {
+    if (res.ok) {
+      const data = await res.json();
+      return camelcaseKeys(data, {
+        deep: true,
+      });
+    }
+    return Promise.reject(res);
   });
-};
 
 export const useCurrencies = () =>
   useQuery<Response>({

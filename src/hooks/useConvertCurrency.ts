@@ -23,19 +23,17 @@ interface Response extends Conversion {
   response: Conversion;
 }
 
-const getConvertCurrencies = async (params: Params): Promise<Response> => {
-  const res = await fetch(
+const getConvertCurrencies = (params: Params): Promise<Response> =>
+  fetch(
     `https://api.currencybeacon.com/v1/convert?${new URLSearchParams({
       ...params,
       amount: params.amount.toString(),
       api_key: import.meta.env.VITE_CURRENCY_BEACON_API_KEY,
     })}`
-  );
-
-  const data = res.json();
-
-  return data;
-};
+  ).then((res) => {
+    if (res.ok) return res.json();
+    return Promise.reject(res);
+  });
 
 export const useConvertCurrency = (params: Params) => {
   const queryClient = useQueryClient();

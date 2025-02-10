@@ -3,7 +3,7 @@ import { Currencies } from "../hooks/useCurrencies";
 interface Props {
   id?: string;
   currencies: Currencies;
-  value?: string;
+  value: string;
   onChange: (currency: string) => void;
 }
 

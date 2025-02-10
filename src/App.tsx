@@ -8,7 +8,11 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <ErrorBoundary
-      fallback={<p>If you're seeing this, Nick messed something up.</p>}
+      fallback={
+        <div role="alert" className="alert">
+          If you're seeing this, Nick messed something up.
+        </div>
+      }
     >
       <QueryClientProvider client={queryClient}>
         <main className="h-screen py-6 bg-gray-100">
