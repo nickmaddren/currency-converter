@@ -61,3 +61,4 @@ Want to learn more about Playwright? You can do that [here](https://playwright.d
 - **Test edge cases:** The E2E test covers the critical flow, however, it would be beneficial to create some component tests that cover edge cases (error states etc.).
 - **CurrencyBeacon client:** A reusable client function for the CurrencyBeacon API would be nice to have.
 - **Styling:** I used Daisy UI V5 and native inputs for the sake of simplicity. We could definitely improve the UX with extra styling and maybe a few Shadcn components. Note: I used the Daisy UI V5 beta for this project as the setup is easier to follow and the release is a few days away.
+- **TanStack Query Devtools:** I've left the devtools enabled for now for easy debugging.
