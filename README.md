@@ -36,7 +36,7 @@ npm install
 
 Sign-up at the [CurrencyBeacon](https://currencybeacon.com/) website to get your own API key.
 
-Create a `env.local` file and add your API key like so: `VITE_CURRENCY_BEACON_API_KEY=***********`
+Create a `.env.local` file and add your API key like so: `VITE_CURRENCY_BEACON_API_KEY=***********`
 
 5. **Start the development server**
 
